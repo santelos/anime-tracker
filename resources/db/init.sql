@@ -14,6 +14,6 @@ CREATE TABLE users(
 );
 
 CREATE TABLE titles_2_users(
-        title_id        INTEGER     NOT NULL    REFERENCES titles.id,
-        user_id         INTEGER     NOT NULL    REFERENCES users.id
+        title_id        INTEGER     NOT NULL    REFERENCES titles(id),
+        user_id         INTEGER     NOT NULL    REFERENCES users(id)
 );

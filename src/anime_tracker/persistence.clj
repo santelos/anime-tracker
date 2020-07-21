@@ -16,10 +16,10 @@
    :password "postgres"})
 
 
-(defn listOfTitles
+(def listOfTitles
   (jdbc/query pg
               ["SELECT * FROM titles AS t
-                  JOIN titles_2_user AS t2u ON t.id = t2u.title_id
+                  JOIN titles_2_users AS t2u ON t.id = t2u.title_id
                   JOIN users AS u ON u.id = t2u.user_id"]))
 
 
