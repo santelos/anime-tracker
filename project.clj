@@ -7,6 +7,7 @@
                  [metosin/reitit-ring "0.5.5"]
                  [org.clojure/java.jdbc "0.7.11"]
                  [selmer "1.12.27"]]
+                 [org.postgresql/postgresql "42.2.14"]]
   :main ^:skip-aot anime-tracker.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
