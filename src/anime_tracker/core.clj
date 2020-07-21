@@ -1,9 +1,9 @@
 
 (ns anime-tracker.core
   (:gen-class)
-    (:use ring.adapter.jetty
-          ring.util.response
-          reitit.ring))
+  (:use ring.adapter.jetty
+        ring.util.response)
+  (:require [reitit.ring :as ring]))
 
 
 (defn handler [request]
@@ -16,8 +16,8 @@
 ;  (content-type (file-response "huindex.html" {:root "resources"}) "text/html"))
 
 (def app
-  (reitit.ring/ring-handler
-   (reitit.ring/router
+  (ring/ring-handler
+   (ring/router
     [["/all" handler]])))
 
 (defn -main
