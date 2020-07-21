@@ -8,15 +8,10 @@
             [anime-tracker.persistence :as persistence]))
 
 (defn handler [request]
-  (response (render-file "../resources/index.html" {:test (range 10)})))
-
-  ; (content-type (file-response "index.html" {:root "resources"}) "text/html"))
+  (response (render-file "../resources/index.html" {:test (range 10), :titles (persistence/list-of-titles)})))
 
 (defn ping [request]
   (content-type (response ) "application/json"))
-;
-;(defn order [request]
-;  (content-type (file-response "huindex.html" {:root "resources"}) "text/html"))
 
 (def app
   (ring/ring-handler
