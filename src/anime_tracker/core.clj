@@ -3,11 +3,13 @@
   (:gen-class)
   (:use ring.adapter.jetty
         ring.util.response)
-  (:require [reitit.ring :as ring]))
-
+  (:require [reitit.ring :as ring]
+            [selmer.parser :refer [render-file]]))
 
 (defn handler [request]
-  (content-type (file-response "index.html" {:root "resources"}) "text/html"))
+  (response (render-file "../resources/index.html" {:test (range 10)})))
+
+  ; (content-type (file-response "index.html" {:root "resources"}) "text/html"))
 
 ;(defn ping [request]
 ;  (content-type (file-response "index.html" {:root "resources"}) "text/html"))
