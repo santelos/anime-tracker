@@ -8,13 +8,10 @@
             [anime-tracker.persistence :as persistence]))
 
 (defn handler [request]
-  (response (render-file "../resources/index.html" {:test (range 10), :titles (doall (persistence/list-of-titles))})))
+  (response (render-file "../resources/index.html" {:titles (persistence/list-of-titles)})))
 
 (defn user-inserter [request]
   (content-type (response (persistence/insert-user (str "Вася" "2")) ) "application/json"))
-
-(defn ping [request]
-  (content-type (response ) "application/json"))
 
 (def app
   (ring/ring-handler
