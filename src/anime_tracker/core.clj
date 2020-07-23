@@ -12,8 +12,16 @@
 (defn handler [request]
   (response (render-file "../resources/index.html" {:titles (mapping/map-titles (persistence/list-of-titles)) :users (persistence/list-of-users)})))
 
+(defn show-users [request]
+  (response (render-file "../resources/users.html" {:users (persistence/list-of-users)})))
+
 (defn user-inserter [request]
-  (content-type (response (persistence/insert-user (str "Вася" "2")) ) "application/json"))
+  (persistence/insert-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params)))
+  (redirect "/users"))
+
+(defn user-deleter [request]
+      (response (persistence/delete-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params))))
+  )
 
 (defn add-title [request]
   (persistence/insert-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params))
@@ -22,9 +30,13 @@
 (def app
   (ring/ring-handler
    (ring/router
-    [["/" handler]
-     ["/add-title" add-title]
-     ["/insert-user" user-inserter]])))
+    [
+      ["/" handler]
+      ["/add-title" add-title]
+      ["/users" show-users]
+      ["/insert-user" user-inserter]
+      ["/delete-user" user-deleter]
+     ])))
 
 (defn -main
   "I don't do a whole lot ... yet."

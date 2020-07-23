@@ -15,3 +15,6 @@
 
 (defn extract-title-from-form [title]
   (hash-map :name (name (title "name")) :link (name (title "link")) :name (name (title "name")) :original_name (name (title "original_name")) :watched_series (read-string (title "watched_series")) :total_series (read-string (title "total_series")) :status (read-string (title "status"))))
+
+(defn mapping-user [user-from-params]
+      (hash-map :id (user-from-params "id") :name (user-from-params "name")))
