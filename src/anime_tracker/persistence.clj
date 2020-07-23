@@ -31,13 +31,8 @@
   (jdbc/insert! pg :users {:name (user :name)}))
 
 (defn delete-user [user]
-  (println user)
   (jdbc/delete! pg :users ["id = ?" (read-string (user :id))])
   )
-
-(defn list-of-users []
-  (jdbc/query pg
-              ["SELECT * FROM users"]))
 
 (defn insert-title-with-users [title]
   (let [new-title (jdbc/insert! pg :titles  (mapping/extract-title-from-form title) {:return-keys ["id"]})]
