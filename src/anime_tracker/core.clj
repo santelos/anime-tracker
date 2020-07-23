@@ -27,6 +27,9 @@
   (persistence/insert-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params))
   (redirect "/"))
 
+(defn favicon [request]
+  (file-response "favicon.ico" {:root "resources"}))
+
 (def app
   (ring/ring-handler
    (ring/router
@@ -36,6 +39,7 @@
       ["/users" show-users]
       ["/insert-user" user-inserter]
       ["/delete-user" user-deleter]
+      ["/favicon.ico" favicon]
      ])))
 
 (defn -main
