@@ -34,10 +34,6 @@
   (jdbc/delete! pg :users ["id = ?" (read-string (user :id))])
   )
 
-(defn list-of-users []
-  (jdbc/query pg
-              ["SELECT * FROM users"]))
-
 (defn insert-title-with-users [title]
   (let [new-title (jdbc/insert! pg :titles  (mapping/extract-title-from-form title) {:return-keys ["id"]})]
     (doseq [user (title "users")] (jdbc/insert! pg :titles_2_users (hash-map :title_id ((first new-title) :id) :user_id (read-string user))))))
