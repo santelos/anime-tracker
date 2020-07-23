@@ -13,6 +13,7 @@
         <th>Просмотрено серий</th>
         <th>Всего серий</th>
         <th>MAL</th>
+        <th>Статус</th>
         <th>Кто смотрел</th>
       </tr>
       {% for item in titles %}
@@ -22,6 +23,7 @@
         <td>{{item.watched_series}}</td>
         <td>{{item.total_series}}</td>
         <td>{{item.link}}</td>
+        <td>{{item.status}}</td>
 
         <td>
           {% for user in item.users %}
