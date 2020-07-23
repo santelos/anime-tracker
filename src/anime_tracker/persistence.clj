@@ -31,7 +31,6 @@
   (jdbc/insert! pg :users {:name (user :name)}))
 
 (defn delete-user [user]
-  (println user)
   (jdbc/delete! pg :users ["id = ?" (read-string (user :id))])
   )
 
