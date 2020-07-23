@@ -5,10 +5,11 @@
         ring.util.response)
   (:require [reitit.ring :as ring]
             [selmer.parser :refer [render-file]]
-            [anime-tracker.persistence :as persistence]))
+            [anime-tracker.persistence :as persistence]
+            [anime-tracker.mapping :as mapping]))
 
 (defn handler [request]
-  (response (render-file "../resources/index.html" {:titles (persistence/list-of-titles)})))
+  (response (render-file "../resources/index.html" {:titles (mapping/map-titles (persistence/list-of-titles))})))
 
 (defn user-inserter [request]
   (content-type (response (persistence/insert-user (str "Вася" "2")) ) "application/json"))

@@ -1,11 +1,35 @@
 <html>
+  <meta charset="UTF-8">
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
   <body>
-    <p>Hello world!2322</p>
-    <p>----</p>
-    {% for item in titles %}
-    <li> {{item}} </li>
-    {% endfor %}
-    <p>-----</p>>
-    {{ titles }}
+    <table>
+      <tr>
+        <th>Название</th>
+        <th>Оригинальное название</th>
+        <th>Просмотрено серий</th>
+        <th>Всего серий</th>
+        <th>MAL</th>
+        <th>Кто смотрел</th>
+      </tr>
+      {% for item in titles %}
+      <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.original_name}}</td>
+        <td>{{item.watched_series}}</td>
+        <td>{{item.total_series}}</td>
+        <td>{{item.link}}</td>
+
+        <td>
+          {% for user in item.users %}
+            {{user.name}}
+          {% endfor %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>
