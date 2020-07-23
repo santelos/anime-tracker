@@ -12,3 +12,6 @@
 
 (defn map-titles [titles]
   (map instruct-users-to-title (seq (group-by mapping-by-title titles))))
+
+(defn extract-title-from-form [title]
+  (hash-map :name (title "name") :link (title "link") :name (title "name") :original_name (title "original_name") :watched_series (read-string (title "watched_series")) :total_series (read-string (title "total_series")) :status (read-string (title "status"))))

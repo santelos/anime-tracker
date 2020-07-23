@@ -14,7 +14,7 @@
         <th>Всего серий</th>
         <th>MAL</th>
         <th>Статус</th>
-        <th>Кто смотрел</th>
+        <th>Кто смотрит</th>
       </tr>
       {% for item in titles %}
       <tr>
@@ -33,5 +33,28 @@
       </tr>
       {% endfor %}
     </table>
+    <p>Add title</p>
+    <form action="/add-title" method="POST">
+      <label for="name">Название:</label><br>
+      <input type="text" id="name" name="name"><br>
+      <label for="original_name">Оригинальное название:</label><br>
+      <input type="text" id="original_name" name="original_name"><br>
+      <label for="watched_series">Просмотрено серий:</label><br>
+      <input type="number" id="watched_series" name="watched_series"><br>
+      <label for="total_series">Всего серий:</label><br>
+      <input type="number" id="total_series" name="total_series"><br>
+      <label for="link">MAL:</label><br>
+      <input type="text" id="link" name="link"><br>
+      <label for="status">Статус:</label><br>
+      <input type="text" id="status" name="status"><br>
+      <label for="users">Кто смотрит:</label><br>
+      <select name="users" id="users" multiple>
+        {% for user in users %}
+          <option value="{{user.id}}">{{user.name}}</option>
+        {% endfor %}
+      </select>
+
+      <input type="submit" value="Submit">
+    </form>
   </body>
 </html>
