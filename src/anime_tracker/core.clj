@@ -36,7 +36,6 @@
 
 (defn parse-mal [request]
   (response (scrap/scrap-mal (((kp/keyword-params-request (pp/params-request request "UTF-8")) :params) :url))))
-;  (redirect "/"))
 
 (defn favicon [request]
   (file-response "favicon.ico" {:root "resources"}))
