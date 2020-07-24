@@ -9,7 +9,7 @@
                  [selmer "1.12.27"]
                  [org.postgresql/postgresql "42.2.14"]
                  [clj-http "3.10.1"]
-                 [clj-tagsoup "0.3.0"]]
+                 [hickory "0.7.1"]]
   :main ^:skip-aot anime-tracker.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all

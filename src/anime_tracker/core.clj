@@ -7,7 +7,8 @@
             [ring.middleware.params :as pp]
             [selmer.parser :refer [render-file]]
             [anime-tracker.persistence :as persistence]
-            [anime-tracker.mapping :as mapping]))
+            [anime-tracker.mapping :as mapping]
+            [anime-tracker.scrap :as scrap]))
 
 (defn handler [request]
   (response (render-file "../resources/index.html" {:titles (mapping/map-titles (persistence/list-of-titles)) :users (persistence/list-of-users)})))
@@ -54,5 +55,6 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
+  (-> "https://myanimelist.net/anime/39587/Re_Zero_kara_Hajimeru_Isekai_Seikatsu_2nd_Season" scrap/scrap-mal println)
   (println "Server is starting up")
   (run-jetty #'app {:port 8080}))
