@@ -19,6 +19,10 @@
   (persistence/insert-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params)))
   (redirect "/users"))
 
+(defn user-updater [request]
+  (persistence/update-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params)))
+  (redirect "/users"))
+
 (defn user-deleter [request]
       (response (persistence/delete-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params))))
   )
@@ -39,6 +43,7 @@
       ["/users" show-users]
       ["/insert-user" user-inserter]
       ["/delete-user" user-deleter]
+      ["/update-user" user-updater]
       ["/favicon.ico" favicon]
      ])))
 

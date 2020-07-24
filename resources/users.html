@@ -2,7 +2,7 @@
     <meta charset="UTF-8">
     <script>
         function showAddUserForm() {
-            var form = document.getElementById("addForm");
+            var form = document.getElementById("addFormDiv");
             var showButton = document.getElementById("showFormButton");
             form.style.display = "block";
             showButton.style.display = "none";
@@ -17,6 +17,20 @@
             xmlHttp.send('id=' + id);
 
             return false;
+        }
+        function editUser(id, name, color) {
+            var formDiv = document.getElementById("addFormDiv");
+            var form = document.getElementById("addForm");
+            var showButton = document.getElementById("showFormButton");
+            var submitFormButton = document.getElementById("submitFormButton");
+            formDiv.style.display = "block";
+            form.action = "/update-user";
+            showButton.style.display = "none";
+            submitFormButton.value = "Обновить пользователя";
+
+            document.getElementById("userName").value = name;
+            document.getElementById("userColor").value = color;
+            document.getElementById("userId").value = id;
         }
     </script>
     <head>
@@ -45,22 +59,26 @@
                 <button onclick="deleteUser({{item.id}})">&#10060;</button>
             </td>
             <td>
-                <button onclick="editUser({{item.id}})">&#9998;</button>
+                <button onclick="editUser({{item.id}}, &quot;{{item.name}}&quot;, &quot;{{item.color}}&quot;)">&#9998;</button>
             </td>
         </tr>
         {% endfor %}
     </table>
     <div>
         <button onclick="showAddUserForm()" id="showFormButton">Добавить пользователя</button>
-        <div id="addForm" style="display:none">
-            <form action="/insert-user" method="POST">
+        <div id="addFormDiv" style="display:none">
+            <form id="addForm" action="/insert-user" method="POST">
                 <p>
+                    <div hidden="true">
+                        <b>ИД</b><br>
+                        <input id="userId" type="number" name="id">
+                    </div>
                     <b>Псевдоним:</b><br>
-                    <input type="text" name="name" size="40"><br>
+                    <input id="userName" type="text" name="name" size="40"><br>
                     <b>Цвет пользователя:</b><br>
-                    <input type="color" id="user-color" name="color">
+                    <input id="userColor" type="color" id="user-color" name="color">
                 </p>
-                <p><input type="submit" value="Сохранить пользователя"></p>
+                <p><input id="submitFormButton" type="submit" value="Сохранить пользователя"></p>
             </form>
         </div>
     </div>

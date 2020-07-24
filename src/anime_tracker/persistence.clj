@@ -18,10 +18,13 @@
 
 (defn list-of-users []
   (jdbc/query pg
-            ["SELECT * FROM users"]))
+            ["SELECT * FROM users ORDER BY id ASC"]))
 
 (defn insert-user [user]
   (jdbc/insert! pg :users {:name (user :name) :color (user :color)}))
+
+(defn update-user [user]
+  (jdbc/update! pg :users {:name (user :name) :color (user :color)} ["id = ?" (read-string (user :id))]))
 
 (defn delete-user [user]
   (jdbc/delete! pg :users ["id = ?" (read-string (user :id))])
