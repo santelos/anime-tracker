@@ -7,14 +7,33 @@
   </style>
   <script>
     function editTitle(id) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onload = function() {
-            location.reload();
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onload = function() {
+          location.reload();
+      }
+      xmlHttp.open("GET", "/edit-title/" + id, true); // true for asynchronous\
+      xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      return false;
+    }
+    function fromMal() {
+      var url = document.getElementById("input_from_mal").value
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", "/parse-mal?url=" + url, true);
+      xmlHttp.setRequestHeader('Content-Type', 'application/application-json');
+      xmlHttp.onload = () => {
+        if (xmlHttp.status != 200) {
+          alert(`Ошибка ${xmlHttp.status}: ${xmlHttp.statusText}`);
+        } else {
+          var resp = JSON.parse(xmlHttp.response);
+          document.getElementById("original_name").value = resp.original_name
+          document.getElementById("watched_series").value = resp.watched_series
+          document.getElementById("total_series").value = resp.total_series
+          document.getElementById("link").value = resp.link
+          document.getElementById("status").value = resp.status
         }
-        xmlHttp.open("GET", "/edit-title/" + id, true); // true for asynchronous\
-        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        return false;
+      }
+      xmlHttp.send();
+      return false;
     }
   </script>
   <head>
@@ -53,6 +72,9 @@
       {% endfor %}
     </table>
     <p>Add title</p>
+    <label>Загрузить с MAL</label>
+    <input type="text" id="input_from_mal" name="input_from_mal">
+    <button onclick="fromMal()">Загрузить</button>
     <form action="/add-title" method="POST">
       <label for="name">Название:</label><br>
       <input type="text" id="name" name="name"><br>
