@@ -19,12 +19,17 @@
      (-> (filterv filter-series-predicate (s/select (s/class "spaceit") html)) first :content)
      2)))
 
+(defn find-picture-link [html]
+  (-> (s/select (s/child (s/attr :itemprop #(= "image" %))) html)
+      first :attrs :data-src))
+
 (defn parse-mal-html [html, url]
   (hash-map :link url
             :original_name (-> html find-title name)
             :watched_series 0
             :total_series (-> html find-total-series)
-            :status 0))
+            :status 0
+            :picture_link (-> html find-picture-link)))
 
 (defn to-parsed-html [html]
   (-> html :body parser/parse parser/as-hickory))
