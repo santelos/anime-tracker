@@ -32,6 +32,9 @@
   (persistence/insert-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params))
   (redirect "/"))
 
+(defn parse-mal [request]
+  (response (println request)))
+
 (defn favicon [request]
   (file-response "favicon.ico" {:root "resources"}))
 
@@ -55,6 +58,5 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (-> "https://myanimelist.net/anime/39587/Re_Zero_kara_Hajimeru_Isekai_Seikatsu_2nd_Season" scrap/scrap-mal println)
   (println "Server is starting up")
   (run-jetty #'app {:port 8080}))

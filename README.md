@@ -9,4 +9,4 @@ TODO:
     3) Кол-во просмотренных / Общее кол-во серий
     4) Люди
     5) Ссылка на мал
-    6) Статус (pending, watching, hold, dropped, completed)
+    6) Статус (plan to watch - 0, watching - 1, hold - 2, dropped - 3, completed - 4)
