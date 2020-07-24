@@ -21,7 +21,7 @@
             ["SELECT * FROM users"]))
 
 (defn insert-user [user]
-  (jdbc/insert! pg :users {:name (user :name)}))
+  (jdbc/insert! pg :users {:name (user :name) :color (user :color)}))
 
 (defn delete-user [user]
   (jdbc/delete! pg :users ["id = ?" (read-string (user :id))])

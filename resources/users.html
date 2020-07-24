@@ -35,13 +35,17 @@
             <th>ИД</th>
             <th>Псевдоним</th>
             <th></th>
+            <th></th>
         </tr>
         {% for item in users %}
         <tr>
             <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
+            <td style="background-color:{{item.color}}">{{item.name}}</td>
             <td>
-                <button onclick="deleteUser({{item.id}})">X</button>
+                <button onclick="deleteUser({{item.id}})">&#10060;</button>
+            </td>
+            <td>
+                <button onclick="editUser({{item.id}})">&#9998;</button>
             </td>
         </tr>
         {% endfor %}
@@ -50,8 +54,11 @@
         <button onclick="showAddUserForm()" id="showFormButton">Добавить пользователя</button>
         <div id="addForm" style="display:none">
             <form action="/insert-user" method="POST">
-                <p><b>Псевдоним:</b><br>
-                    <input type="text" name="name" size="40">
+                <p>
+                    <b>Псевдоним:</b><br>
+                    <input type="text" name="name" size="40"><br>
+                    <b>Цвет пользователя:</b><br>
+                    <input type="color" id="user-color" name="color">
                 </p>
                 <p><input type="submit" value="Сохранить пользователя"></p>
             </form>

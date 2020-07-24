@@ -30,7 +30,7 @@
 
         <td>
           {% for user in item.users %}
-            {{user.name}}
+            <p style="background-color:{{user.color}}">{{user.name}}</p>
           {% endfor %}
         </td>
       </tr>
@@ -53,7 +53,7 @@
       <label for="users">Кто смотрит:</label><br>
       <select name="users" id="users" multiple>
         {% for user in users %}
-          <option value="{{user.id}}">{{user.name}}</option>
+          <option value="{{user.id}}" style="background-color:{{user.color}}">{{user.name}}</option>
         {% endfor %}
       </select>
 

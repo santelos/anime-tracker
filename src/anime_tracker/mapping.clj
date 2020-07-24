@@ -4,7 +4,7 @@
   (hash-map :id (title :id) :original_name  (title :original_name) :name (title :name) :status (title :status) :link (title :link)  :watched_series (title :watched_series) :total_series (title :total_series)))
 
 (defn extract-user [user]
-  (hash-map :id (user :id_2) :name (user :name_2)))
+  (hash-map :id (user :id_2) :name (user :name_2) :color (user :color)))
 
 (defn instruct-users-to-title [titles-with-users]
   (let [[title users] titles-with-users]
@@ -17,4 +17,4 @@
   (hash-map :name (name (title "name")) :link (name (title "link")) :name (name (title "name")) :original_name (name (title "original_name")) :watched_series (read-string (title "watched_series")) :total_series (read-string (title "total_series")) :status (read-string (title "status"))))
 
 (defn mapping-user [user-from-params]
-  (hash-map :id (user-from-params "id") :name (user-from-params "name")))
+  (hash-map :id (user-from-params "id") :name (user-from-params "name") :color (user-from-params "color")))
