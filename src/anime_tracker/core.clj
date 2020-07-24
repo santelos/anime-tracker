@@ -5,6 +5,8 @@
         ring.util.response)
   (:require [reitit.ring :as ring]
             [ring.middleware.params :as pp]
+            [ring.middleware.keyword-params :as kp]
+            [ring.middleware.json :as json]
             [selmer.parser :refer [render-file]]
             [anime-tracker.persistence :as persistence]
             [anime-tracker.mapping :as mapping]
@@ -33,7 +35,8 @@
   (redirect "/"))
 
 (defn parse-mal [request]
-  (response (println request)))
+  (response (scrap/scrap-mal (((kp/keyword-params-request (pp/params-request request "UTF-8")) :params) :url))))
+;  (redirect "/"))
 
 (defn favicon [request]
   (file-response "favicon.ico" {:root "resources"}))
@@ -42,18 +45,20 @@
   (response (render-file "../resources/edit-title.html" {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id)))) :users (persistence/list-of-users)})))
 
 (def app
-  (ring/ring-handler
-   (ring/router
-    [
-      ["/" handler]
-      ["/add-title" add-title]
-      ["/users" show-users]
-      ["/insert-user" user-inserter]
-      ["/delete-user" user-deleter]
-      ["/update-user" user-updater]
-      ["/favicon.ico" favicon]
-      ["/edit-title/:id" get-edit-title]
-     ])))
+  (json/wrap-json-response
+    (ring/ring-handler
+     (ring/router
+      [
+        ["/" handler]
+        ["/add-title" add-title]
+        ["/users" show-users]
+        ["/insert-user" user-inserter]
+        ["/delete-user" user-deleter]
+        ["/update-user" user-updater]
+        ["/favicon.ico" favicon]
+        ["/edit-title/:id" get-edit-title]
+        ["/parse-mal" parse-mal]
+        ]))))
 
 (defn -main
   "I don't do a whole lot ... yet."
