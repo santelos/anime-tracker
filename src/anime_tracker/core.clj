@@ -34,6 +34,9 @@
 (defn favicon [request]
   (file-response "favicon.ico" {:root "resources"}))
 
+(defn get-edit-title [request]
+  (response (render-file "../resources/edit-title.html" {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id)))) :users (persistence/list-of-users)})))
+
 (def app
   (ring/ring-handler
    (ring/router
@@ -45,6 +48,7 @@
       ["/delete-user" user-deleter]
       ["/update-user" user-updater]
       ["/favicon.ico" favicon]
+      ["/edit-title/:id" get-edit-title]
      ])))
 
 (defn -main

@@ -16,6 +16,13 @@
                 LEFT JOIN titles_2_users AS t2u ON t.id = t2u.title_id
                 LEFT JOIN users AS u ON u.id = t2u.user_id"]))
 
+(defn title-by-id [id]
+  (jdbc/query pg
+            ["SELECT * FROM titles AS t
+                LEFT JOIN titles_2_users AS t2u ON t.id = t2u.title_id
+                LEFT JOIN users AS u ON u.id = t2u.user_id
+                WHERE t.id = ?" (read-string id)]))
+
 (defn list-of-users []
   (jdbc/query pg
             ["SELECT * FROM users ORDER BY id ASC"]))

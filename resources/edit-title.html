@@ -1,0 +1,37 @@
+<html>
+  <meta charset="UTF-8">
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+  <head>
+    <title>Наше аниме</title>
+  </head>
+  <body>
+
+    <p>Edit title</p>
+    <form action="/edit-title" method="POST">
+      <label for="name">Название:</label><br>
+      <input type="text" id="name" name="name" value="{{title.name}}"><br>
+      <label for="original_name">Оригинальное название:</label><br>
+      <input type="text" id="original_name" name="original_name" value="{{title.original_name}}"><br>
+      <label for="watched_series">Просмотрено серий:</label><br>
+      <input type="number" id="watched_series" name="watched_series" value="{{title.watched_series}}"><br>
+      <label for="total_series">Всего серий:</label><br>
+      <input type="number" id="total_series" name="total_series" value="{{title.total_series}}"><br>
+      <label for="link">MAL:</label><br>
+      <input type="text" id="link" name="link" value="{{title.link}}"><br>
+      <label for="status">Статус:</label><br>
+      <input type="number" id="status" name="status" value="{{title.status}}"><br>
+      <label for="users">Кто смотрит:</label><br>
+      <select name="users" id="users" multiple>
+        {% for user in users %}
+          <option value="{{user.id}}" {% if 1 = 1 %} selected {% endif %}>{{user.name}}</option>
+        {% endfor %}
+      </select>
+
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
