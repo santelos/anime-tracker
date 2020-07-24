@@ -11,7 +11,7 @@ CREATE TABLE titles(
 CREATE TABLE users(
     id                  SERIAL      NOT NULL    PRIMARY KEY,
     name                TEXT        NOT NULL    UNIQUE,
-    color               TEXT        NOT NULL    UNIQUE,
+    color               TEXT        NOT NULL    UNIQUE
 );
 
 CREATE TABLE titles_2_users(
