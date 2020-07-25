@@ -1,13 +1,10 @@
 (ns anime-tracker.persistence
     (:require [clojure.java.jdbc :as jdbc]
-              [anime-tracker.mapping :as mapping]))
+              [anime-tracker.mapping :as mapping]
+              [anime-tracker.config :as cfg]))
 
 (def pg
-  {:dbtype "postgresql"
-   :dbname "postgres"
-   :host "localhost"
-   :user "postgres"
-   :password "postgres"})
+  {:dbtype "postgresql" :connection-uri (cfg/database-url) :user (cfg/database-user) :password (cfg/database-password)})
 
 
 (defn list-of-titles []

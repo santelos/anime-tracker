@@ -10,7 +10,8 @@
             [selmer.parser :refer [render-file]]
             [anime-tracker.persistence :as persistence]
             [anime-tracker.mapping :as mapping]
-            [anime-tracker.scrap :as scrap]))
+            [anime-tracker.scrap :as scrap]
+            [anime-tracker.config :as cfg]))
 
 (defn handler [request]
   (response (render-file "../resources/index.html" {:titles (mapping/map-titles (persistence/list-of-titles)) :users (persistence/list-of-users)})))
@@ -63,4 +64,4 @@
   "I don't do a whole lot ... yet."
   [& args]
   (println "Server is starting up")
-  (run-jetty #'app {:port 8080}))
+  (run-jetty #'app {:port (cfg/port)}))
