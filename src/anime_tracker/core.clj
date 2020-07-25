@@ -44,6 +44,10 @@
 (defn get-edit-title [request]
   (response (render-file "../resources/edit-title.html" {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id)))) :users (persistence/list-of-users)})))
 
+(defn edit-title [request]
+  (persistence/update-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params)  (read-string ((request :path-params) :id)))
+  (redirect "/"))
+
 (def app
   (json/wrap-json-response
     (ring/ring-handler
@@ -56,9 +60,8 @@
         ["/delete-user" user-deleter]
         ["/update-user" user-updater]
         ["/favicon.ico" favicon]
-        ["/edit-title/:id" get-edit-title]
-        ["/parse-mal" parse-mal]
-        ]))))
+        ["/edit-title/:id" {:get {:handler get-edit-title} :post {:handler edit-title}}]
+        ["/parse-mal" parse-mal]]))))
 
 (defn -main
   "I don't do a whole lot ... yet."

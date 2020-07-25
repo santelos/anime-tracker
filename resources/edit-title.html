@@ -11,7 +11,7 @@
   <body>
 
     <p>Edit title</p>
-    <form action="/edit-title" method="POST">
+    <form action="/edit-title/{{title.id}}" method="POST">
       <label for="name">Название:</label><br>
       <input type="text" id="name" name="name" value="{{title.name}}"><br>
       <label for="original_name">Оригинальное название:</label><br>
