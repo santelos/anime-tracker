@@ -1,7 +1,6 @@
 # anime-tracker
 Simple tracker for anime that currently watched
 
-
 # Запуски сервера
 Конфигурация сервера происходит параметрами среды:
 - PORT - порт сервера (8080 по умолчанию)
