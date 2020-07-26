@@ -6,7 +6,7 @@ CREATE TABLE titles(
         watched_series  INTEGER     NOT NULL,
         total_series    INTEGER     NOT NULL,
         status          INTEGER     NOT NULL,
-        pic             BYTEA
+        picture_link    TEXT
 );
 
 CREATE TABLE users(

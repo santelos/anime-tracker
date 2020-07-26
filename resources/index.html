@@ -30,6 +30,9 @@
           document.getElementById("total_series").value = resp.total_series
           document.getElementById("link").value = resp.link
           document.getElementById("status").value = resp.status
+          document.getElementById("picture_link").setAttribute("src", resp.picture_link)
+          document.getElementById("picture_link").removeAttribute("hidden")
+          document.getElementById("picture_link_input").value = resp.picture_link
         }
       }
       xmlHttp.send();
@@ -75,7 +78,9 @@
     <label>Загрузить с MAL</label>
     <input type="text" id="input_from_mal" name="input_from_mal">
     <button onclick="fromMal()">Загрузить</button>
-    <form action="/add-title" method="POST">
+    <form id="new_title_form" action="/add-title" method="POST">
+      <img id="picture_link" name="picture_link" src="" hidden><br>
+      <input type="hidden" id="picture_link_input" name="picture_link"><br>
       <label for="name">Название:</label><br>
       <input type="text" id="name" name="name"><br>
       <label for="original_name">Оригинальное название:</label><br>
