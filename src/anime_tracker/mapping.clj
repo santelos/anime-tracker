@@ -1,7 +1,14 @@
 (ns anime-tracker.mapping)
 
 (defn mapping-by-title [title]
-  (hash-map :id (title :id) :original_name  (title :original_name) :name (title :name) :status (title :status) :link (title :link)  :watched_series (title :watched_series) :total_series (title :total_series)))
+  (hash-map :id (title :id)
+            :original_name (title :original_name)
+            :name (title :name)
+            :status (title :status)
+            :link (title :link)
+            :watched_series (title :watched_series)
+            :total_series (title :total_series)
+            :picture_link (title :picture_link)))
 
 (defn extract-user [user]
   (hash-map :id (user :id_2) :name (user :name_2) :color (user :color)))

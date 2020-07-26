@@ -45,6 +45,7 @@
   <body>
     <table>
       <tr>
+        <th>Картинка</th>
         <th>Название</th>
         <th>Оригинальное название</th>
         <th>Просмотрено серий</th>
@@ -56,6 +57,7 @@
       </tr>
       {% for item in titles %}
       <tr>
+        <td><img src="{{item.picture_link}}"></td>
         <td>{{item.name}}</td>
         <td>{{item.original_name}}</td>
         <td>{{item.watched_series}}</td>
