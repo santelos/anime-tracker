@@ -13,6 +13,7 @@
                  [hickory "0.7.1"]
                  [environ "1.2.0"]]
   :main ^:skip-aot anime-tracker.core
+  :uberjar-name "anime-tracker.jar"
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})
