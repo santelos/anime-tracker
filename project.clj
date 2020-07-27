@@ -15,5 +15,6 @@
   :main ^:skip-aot anime-tracker.core
   :uberjar-name "anime-tracker.jar"
   :target-path "target/%s"
+  :min-lein-version "2.0.0"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})
