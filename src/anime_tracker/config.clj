@@ -6,10 +6,10 @@
   (read-string (or (env :port) "8080")))
 
 (defn database-url []
-  (or (env :database-url) "jdbc:postgresql://localhost:5432/postgres"))
+  (or (env :jdbc-database-url) (env :database-url) "jdbc:postgresql://localhost:5432/postgres"))
 
 (defn database-password []
-  (or (env :db-password) "postgres"))
+  (or (env :jdbc-database-password) "postgres"))
 
 (defn database-user []
-  (or (env :db-user) "postgres"))
+  (or (env :jdbc-database-username) "postgres"))
