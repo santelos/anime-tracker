@@ -21,13 +21,13 @@
   (sort-by :id (map instruct-users-to-title (seq (group-by mapping-by-title titles)))))
 
 (defn extract-title-from-form [title]
-  (hash-map :name (name (title "name"))
-            :link (name (title "link"))
-            :original_name (name (title "original_name"))
-            :watched_series (read-string (title "watched_series"))
-            :total_series (read-string (title "total_series"))
-            :status (read-string (title "status"))
-            :picture_link (name (title "picture_link"))))
+  (hash-map :name (if (nil? (title "name")) nil (name (title "name")))
+            :link (if (nil? (title "link")) nil (name (title "link")))
+            :original_name (if (nil? (title "original_name")) nil (name (title "original_name")))
+            :watched_series (if (nil? (title "watched_series")) nil (read-string (title "watched_series")))
+            :total_series (if (nil? (title "total_series")) nil (read-string (title "total_series")))
+            :status (if (nil? (title "status")) nil (read-string (title "status")))
+            :picture_link (if (nil? (title "picture_link")) nil (name (title "picture_link")))))
 
 (defn mapping-user [user-from-params]
   (hash-map :id (user-from-params "id") :name (user-from-params "name") :color (user-from-params "color")))

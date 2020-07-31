@@ -31,21 +31,22 @@
   (jdbc/update! pg :users {:name (user :name) :color (user :color)} ["id = ?" (read-string (user :id))]))
 
 (defn delete-user [user]
-  (jdbc/delete! pg :users ["id = ?" (read-string (user :id))])
-  )
+  (jdbc/delete! pg :users ["id = ?" (read-string (user :id))]))
 
 (defn insert-title-with-users [title]
-  (let [new-title (jdbc/insert! pg :titles  (mapping/extract-title-from-form title) {:return-keys ["id"]})]
-    (cond
-      (nil? (title "users")) ()
-      (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! pg :titles_2_users (hash-map :title_id ((first new-title) :id) :user_id (read-string user))))
-      :else  (jdbc/insert! pg :titles_2_users (hash-map :title_id ((first new-title) :id) :user_id (read-string (title "users")))))))
+  (jdbc/with-db-transaction [tx pg]
+    (let [new-title (jdbc/insert! tx :titles  (mapping/extract-title-from-form title) {:return-keys ["id"]})]
+      (cond
+        (nil? (title "users")) ()
+        (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! tx :titles_2_users (hash-map :title_id ((first new-title) :id) :user_id (read-string user))))
+        :else  (jdbc/insert! tx :titles_2_users (hash-map :title_id ((first new-title) :id) :user_id (read-string (title "users"))))))))
 
 
 (defn update-title-with-users [title id]
-  (jdbc/update! pg :titles  (mapping/extract-title-from-form title) ["id = ?" id])
-  (jdbc/delete! pg :titles_2_users ["title_id = ?" id])
-  (cond
-      (nil? (title "users")) ()
-      (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! pg :titles_2_users (hash-map :title_id id :user_id (read-string user))))
-      :else  (jdbc/insert! pg :titles_2_users (hash-map :title_id id :user_id (read-string (title "users"))))))
+  (jdbc/with-db-transaction [tx pg]
+    (jdbc/update! tx :titles  (mapping/extract-title-from-form title) ["id = ?" id])
+    (jdbc/delete! tx :titles_2_users ["title_id = ?" id])
+    (cond
+        (nil? (title "users")) ()
+        (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! tx :titles_2_users (hash-map :title_id id :user_id (read-string user))))
+        :else  (jdbc/insert! tx :titles_2_users (hash-map :title_id id :user_id (read-string (title "users")))))))
