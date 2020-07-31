@@ -6,7 +6,8 @@ CREATE TABLE titles(
         watched_series  INTEGER     NOT NULL,
         total_series    INTEGER     NOT NULL,
         status          INTEGER     NOT NULL,
-        picture_link    TEXT
+        picture_link    TEXT,
+        comment         TEXT
 );
 
 CREATE TABLE users(

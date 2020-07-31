@@ -51,6 +51,7 @@
         <th>MAL</th>
         <th>Статус</th>
         <th>Кто смотрит</th>
+        <th>Примечание</th>
         <th>Редактировать</th>
       </tr>
       {% for item in titles %}
@@ -68,6 +69,7 @@
             <p style="background-color:{{user.color}}">{{user.name}}</p>
           {% endfor %}
         </td>
+        <td>{{item.comment}}</td>
         <td>
           <a href="/edit-title/{{item.id}}">E</a>
         </td>
@@ -75,7 +77,7 @@
       {% endfor %}
     </table>
   </div>
-  <br>  
+  <br>
   <label>Загрузить с MAL</label>
     <input type="text" id="input_from_mal" name="input_from_mal">
     <button onclick="fromMal()">Загрузить</button>
@@ -94,6 +96,8 @@
       <input type="text" id="link" name="link"><br>
       <label for="status">Статус:</label><br>
       <input type="number" id="status" name="status"><br>
+      <label for="comment">Примечание:</label><br>
+      <input type="text" id="comment" name="comment"><br>
       <label for="users">Кто смотрит:</label><br>
       <select name="users" id="users" multiple>
         {% for user in users %}

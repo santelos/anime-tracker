@@ -8,6 +8,7 @@
             :link (title :link)
             :watched_series (title :watched_series)
             :total_series (title :total_series)
+            :comment (title :comment)
             :picture_link (title :picture_link)))
 
 (defn extract-user [user]
@@ -27,6 +28,7 @@
             :watched_series (if (nil? (title "watched_series")) nil (read-string (title "watched_series")))
             :total_series (if (nil? (title "total_series")) nil (read-string (title "total_series")))
             :status (if (nil? (title "status")) nil (read-string (title "status")))
+            :comment (if (nil? (title "comment")) nil (name (title "comment")))
             :picture_link (if (nil? (title "picture_link")) nil (name (title "picture_link")))))
 
 (defn mapping-user [user-from-params]
