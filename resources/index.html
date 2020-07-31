@@ -1,10 +1,7 @@
 <html>
   <meta charset="UTF-8">
-  <style>
-    table, th, td {
-      border: 1px solid black;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/style.css">
   <script>
     function editTitle(id) {
       var xmlHttp = new XMLHttpRequest();
@@ -40,9 +37,10 @@
     }
   </script>
   <head>
-    <title>Наше аниме</title>
+      <title>Наше аниме</title>
   </head>
   <body>
+    <div class="table_home">
     <table>
       <tr>
         <th>Картинка</th>
@@ -76,8 +74,9 @@
       </tr>
       {% endfor %}
     </table>
-    <p>Add title</p>
-    <label>Загрузить с MAL</label>
+  </div>
+  <br>  
+  <label>Загрузить с MAL</label>
     <input type="text" id="input_from_mal" name="input_from_mal">
     <button onclick="fromMal()">Загрузить</button>
     <form id="new_title_form" action="/add-title" method="POST">

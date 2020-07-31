@@ -1,5 +1,6 @@
 <html>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/style.css">
     <script>
         function showAddUserForm() {
             var form = document.getElementById("addFormDiv");
@@ -36,34 +37,35 @@
     <head>
         <title>Смотрящие</title>
     </head>
-    <style>
-        table, th, td {
-          border: 1px solid black;
-        }
-      </style>
     <body>
-    <p><a href="/">На главную</a></p>
+    <p><a href="/">На главную</a></p> 
     <br>
-    <table>
-        <tr>
-            <th>ИД</th>
-            <th>Псевдоним</th>
-            <th></th>
-            <th></th>
-        </tr>
-        {% for item in users %}
-        <tr>
-            <td>{{item.id}}</td>
-            <td style="background-color:{{item.color}}">{{item.name}}</td>
-            <td>
-                <button onclick="deleteUser({{item.id}})">&#10060;</button>
-            </td>
-            <td>
-                <button onclick="editUser({{item.id}}, &quot;{{item.name}}&quot;, &quot;{{item.color}}&quot;)">&#9998;</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="meg1"> 
+        <img src="images/meg1.png" alt="megumin" none>
+    </div>
+    <div class="table_users">
+        <table>
+            <tr>
+                <th>ИД</th>
+                <th>Псевдоним</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for item in users %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td style="background-color:{{item.color}}">{{item.name}}</td>
+                <td>
+                    <button onclick="deleteUser({{item.id}})">&#10060;</button>
+                </td>
+                <td>
+                    <button onclick="editUser({{item.id}}, &quot;{{item.name}}&quot;, &quot;{{item.color}}&quot;)">&#9998;</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
     <div>
         <button onclick="showAddUserForm()" id="showFormButton">Добавить пользователя</button>
         <div id="addFormDiv" style="display:none">
