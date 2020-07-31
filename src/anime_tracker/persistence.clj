@@ -11,7 +11,8 @@
   (jdbc/query pg
             ["SELECT * FROM titles AS t
                 LEFT JOIN titles_2_users AS t2u ON t.id = t2u.title_id
-                LEFT JOIN users AS u ON u.id = t2u.user_id"]))
+                LEFT JOIN users AS u ON u.id = t2u.user_id
+                ORDER BY t.id DESC"]))
 
 (defn title-by-id [id]
   (jdbc/query pg
