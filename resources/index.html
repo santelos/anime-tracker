@@ -74,7 +74,9 @@
         <td>{{item.original_name}}</td>
         <td>
           {{item.watched_series}}
-          <button onclick="increaseWatchingSeries({{item.id}})">+</button>
+          {% if item.watched_series < item.total_series %}
+            <button onclick="increaseWatchingSeries({{item.id}})">+</button>
+          {% endif %}
         </td>
         <td>{{item.total_series}}</td>
         <td>{{item.link}}</td>
