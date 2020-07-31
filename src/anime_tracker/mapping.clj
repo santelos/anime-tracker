@@ -19,7 +19,7 @@
     (assoc title :users (sort-by :id (into [] (map extract-user users))))))
 
 (defn map-titles [titles]
-  (sort-by :id (map instruct-users-to-title (seq (group-by mapping-by-title titles)))))
+  (map instruct-users-to-title (seq (group-by mapping-by-title titles))))
 
 (defn extract-title-from-form [title]
   (hash-map :name (if (nil? (title "name")) nil (name (title "name")))
