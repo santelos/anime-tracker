@@ -19,3 +19,4 @@ TODO:
     6) Статус (plan to watch - 0, watching - 1, hold - 2, dropped - 3, completed - 4)
 
 - в edit-title.html правильно выставлять выделения текущих смотрящих
+- статусы аниме

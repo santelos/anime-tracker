@@ -75,7 +75,9 @@
         </td>
         <td>{{item.total_series}}</td>
         <td>{{item.link}}</td>
-        <td>{{item.status}}</td>
+        <td>
+          {% for x in statuses %} {% if item.status = x.id %} {{x.name}} {% endif %} {% endfor %}
+        </td>
 
         <td>
           {% for user in item.users %}
@@ -108,7 +110,11 @@
       <label for="link">MAL:</label><br>
       <input type="text" id="link" name="link"><br>
       <label for="status">Статус:</label><br>
-      <input type="number" id="status" name="status"><br>
+      <select name="status" id="status">
+        {% for status in statuses %}
+          <option value="{{status.id}}">{{status.name}}</option>
+        {% endfor %}
+      </select><br>
       <label for="comment">Примечание:</label><br>
       <input type="text" id="comment" name="comment"><br>
       <label for="users">Кто смотрит:</label><br>

@@ -11,11 +11,15 @@
             [anime-tracker.persistence :as persistence]
             [anime-tracker.mapping :as mapping]
             [anime-tracker.scrap :as scrap]
+            [anime-tracker.status :as status]
             [anime-tracker.config :as cfg]
             [ring.middleware.resource :refer [wrap-resource]]))
 
 (defn handler [request]
-  (response (render-file "../resources/index.html" {:titles (mapping/map-titles (persistence/list-of-titles)) :users (persistence/list-of-users)})))
+  (response (render-file "../resources/index.html"
+                          {:titles (mapping/map-titles (persistence/list-of-titles))
+                          :users (persistence/list-of-users)
+                          :statuses (status/statuses)})))
 
 (defn show-users [request]
   (response (render-file "../resources/users.html" {:users (persistence/list-of-users)})))
@@ -43,7 +47,10 @@
   (file-response "favicon.ico" {:root "resources"}))
 
 (defn get-edit-title [request]
-  (response (render-file "../resources/edit-title.html" (mapping/mark-users {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id)))) :users (persistence/list-of-users)}))))
+  (response (render-file "../resources/edit-title.html"
+                          (mapping/mark-users {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id))))
+                          :users (persistence/list-of-users)
+                          :statuses (status/statuses)}))))
 
 (defn edit-title [request]
   (persistence/update-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params)  (read-string ((request :path-params) :id)))

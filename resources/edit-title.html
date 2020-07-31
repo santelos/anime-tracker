@@ -22,7 +22,11 @@
       <label for="link">MAL:</label><br>
       <input type="text" id="link" name="link" value="{{title.link}}"><br>
       <label for="status">Статус:</label><br>
-      <input type="number" id="status" name="status" value="{{title.status}}"><br>
+      <select name="status" id="status">
+        {% for status in statuses %}
+          <option value="{{status.id}}" {% if status.id = title.status %} selected {% endif %}>{{status.name}}</option>
+        {% endfor %}
+      </select><br>
       <label for="users">Кто смотрит:</label><br>
       <select name="users" id="users" multiple>
         {% for user in users %}
