@@ -11,7 +11,8 @@
             [anime-tracker.persistence :as persistence]
             [anime-tracker.mapping :as mapping]
             [anime-tracker.scrap :as scrap]
-            [anime-tracker.config :as cfg]))
+            [anime-tracker.config :as cfg]
+            [ring.middleware.resource :refer [wrap-resource]]))
 
 (defn handler [request]
   (response (render-file "../resources/index.html" {:titles (mapping/map-titles (persistence/list-of-titles)) :users (persistence/list-of-users)})))
@@ -49,7 +50,8 @@
   (redirect "/"))
 
 (def app
-  (json/wrap-json-response
+  (wrap-resource
+   (json/wrap-json-response
     (ring/ring-handler
      (ring/router
       [
@@ -61,7 +63,7 @@
         ["/update-user" user-updater]
         ["/favicon.ico" favicon]
         ["/edit-title/:id" {:get {:handler get-edit-title} :post {:handler edit-title}}]
-        ["/parse-mal" parse-mal]]))))
+        ["/parse-mal" parse-mal]]))) ""))
 
 (defn -main
   "I don't do a whole lot ... yet."

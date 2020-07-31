@@ -1,16 +1,13 @@
 <html>
   <meta charset="UTF-8">
-  <style>
-    table, th, td {
-      border: 1px solid black;
-    }
-  </style>
+  <link rel="stylesheet" href="styles/style.css">
   <head>
-    <title>Наше аниме</title>
+    <title>Редактировать тайтл</title>
   </head>
   <body>
 
-    <p>Edit title</p>
+    <p><a href="/">На главную</a></p>
+      <br>
     <form action="/edit-title/{{title.id}}" method="POST">
       <label for="name">Название:</label><br>
       <input type="text" id="name" name="name" value="{{title.name}}"><br>

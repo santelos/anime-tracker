@@ -1,0 +1,20 @@
+@import "reset.css" ;
+
+body{
+    background-color: rgb(189, 82, 88);
+    padding: 30px;
+    background-image: url(../images/meg3.png);
+}
+
+table, th, td {
+    border: 3px solid black; 
+    padding: 5px;
+}
+
+.table_home, .table_users{
+    
+} 
+
+.meg1{
+    float: right;
+}
