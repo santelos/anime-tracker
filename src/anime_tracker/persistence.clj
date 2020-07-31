@@ -53,4 +53,7 @@
 
 (defn increase-title-series [id]
   (jdbc/execute! pg
-    ["UPDATE titles SET watched_series = watched_series + 1 WHERE id = ?" id]))
+    ["UPDATE titles SET watched_series = watched_series + 1 WHERE id = ?" id])
+  (if (let [res (first (jdbc/query pg ["SELECT watched_series, total_series FROM titles WHERE id = ?" id]))]
+        (= (res :watched_series) (res :total_series)))
+    (jdbc/update! pg :titles {:status 3} ["id = ?" id])))
