@@ -43,7 +43,7 @@
   (file-response "favicon.ico" {:root "resources"}))
 
 (defn get-edit-title [request]
-  (response (render-file "../resources/edit-title.html" {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id)))) :users (persistence/list-of-users)})))
+  (response (render-file "../resources/edit-title.html" (mapping/mark-users {:title (first (mapping/map-titles (persistence/title-by-id ((request :path-params) :id)))) :users (persistence/list-of-users)}))))
 
 (defn edit-title [request]
   (persistence/update-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params)  (read-string ((request :path-params) :id)))

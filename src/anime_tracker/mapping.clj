@@ -33,3 +33,12 @@
 
 (defn mapping-user [user-from-params]
   (hash-map :id (user-from-params "id") :name (user-from-params "name") :color (user-from-params "color")))
+
+(defn mark-user [user, title-users]
+  (println title-users)
+  (assoc user :used (contains? title-users (user :id)))
+  )
+
+(defn mark-users [title-and-users]
+    (assoc title-and-users :users (map (fn[user](mark-user user (group-by :id ((title-and-users :title) :users)))) (title-and-users :users)))
+  )
