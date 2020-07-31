@@ -49,6 +49,10 @@
   (persistence/update-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params)  (read-string ((request :path-params) :id)))
   (redirect "/"))
 
+(defn increase-series [request]
+  (persistence/increase-title-series (read-string ((request :path-params) :id)))
+  (redirect "/"))
+
 (def app
   (wrap-resource
    (json/wrap-json-response
@@ -63,6 +67,7 @@
         ["/update-user" user-updater]
         ["/favicon.ico" favicon]
         ["/edit-title/:id" {:get {:handler get-edit-title} :post {:handler edit-title}}]
+        ["/increase-series/:id" {:post {:handler increase-series}}]
         ["/parse-mal" parse-mal]]))) ""))
 
 (defn -main

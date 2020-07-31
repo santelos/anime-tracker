@@ -12,6 +12,16 @@
       xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
       return false;
     }
+    function increaseWatchingSeries(id) {
+      console.log('11');
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onload = function() {
+          location.reload();
+      }
+      xmlHttp.open("POST", "/increase-series/" + id, true); // true for asynchronous\
+      xmlHttp.send();
+      return false;
+    }
     function fromMal() {
       var url = document.getElementById("input_from_mal").value
       var xmlHttp = new XMLHttpRequest();
@@ -59,7 +69,10 @@
         <td><img src="{{item.picture_link}}"></td>
         <td>{{item.name}}</td>
         <td>{{item.original_name}}</td>
-        <td>{{item.watched_series}}</td>
+        <td>
+          {{item.watched_series}}
+          <button onclick="increaseWatchingSeries({{item.id}})">+</button>
+        </td>
         <td>{{item.total_series}}</td>
         <td>{{item.link}}</td>
         <td>{{item.status}}</td>

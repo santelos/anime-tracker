@@ -47,6 +47,10 @@
     (jdbc/update! tx :titles  (mapping/extract-title-from-form title) ["id = ?" id])
     (jdbc/delete! tx :titles_2_users ["title_id = ?" id])
     (cond
-        (nil? (title "users")) ()
-        (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! tx :titles_2_users (hash-map :title_id id :user_id (read-string user))))
-        :else  (jdbc/insert! tx :titles_2_users (hash-map :title_id id :user_id (read-string (title "users")))))))
+      (nil? (title "users")) ()
+      (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! tx :titles_2_users (hash-map :title_id id :user_id (read-string user))))
+      :else  (jdbc/insert! tx :titles_2_users (hash-map :title_id id :user_id (read-string (title "users")))))))
+
+(defn increase-title-series [id]
+  (jdbc/execute! pg
+    ["UPDATE titles SET watched_series = watched_series + 1 WHERE id = ?" id]))
