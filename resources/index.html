@@ -1,7 +1,9 @@
 <html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="/styles/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
   <script>
     function editTitle(id) {
       var xmlHttp = new XMLHttpRequest();
@@ -48,6 +50,7 @@
   </script>
   <head>
       <title>Наше аниме</title>
+      
   </head>
   <body>
     <div class="table_home">
@@ -93,6 +96,10 @@
     </table>
   </div>
   <br>
+
+
+  <div class="forms">
+
   <label>Загрузить с MAL</label>
     <input type="text" id="input_from_mal" name="input_from_mal">
     <button onclick="fromMal()">Загрузить</button>
@@ -123,9 +130,13 @@
           <option value="{{user.id}}" style="background-color:{{user.color}}">{{user.name}}</option>
         {% endfor %}
       </select>
-
+      <br>
+        <div class="knopka">
       <input type="submit" value="Submit">
+        </div>
     </form>
+
+  </div>
     <br><p><a href="/users">Добавить/удалить пользователя</a></p>
   </body>
 </html>

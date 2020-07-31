@@ -1,20 +1,28 @@
 @import "reset.css" ;
 
 body{
-    background-color: rgb(189, 82, 88);
+    background-color: #eeede9;
     padding: 30px;
     background-image: url(../images/meg3.png);
+    background-repeat: no-repeat;
+    font-family: 'Balsamiq Sans', cursive;
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
 }
 
 table, th, td {
     border: 3px solid black; 
     padding: 5px;
+
 }
 
-.table_home, .table_users{
-    
-} 
+label{
+    display: inline-block;
+    margin: 4px 0px;
+}
 
-.meg1{
-    float: right;
+.knopka{
+    display: inline-block;
+    margin: 5px 0px;
 }
