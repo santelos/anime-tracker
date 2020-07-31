@@ -9,6 +9,8 @@
     <p><a href="/">На главную</a></p>
       <br>
     <form action="/edit-title/{{title.id}}" method="POST">
+      <label for="picture_link">Картинка:</label><br>
+      <input type="text" id="picture_link" name="picture_link" value="{{title.picture_link}}"><br>
       <label for="name">Название:</label><br>
       <input type="text" id="name" name="name" value="{{title.name}}"><br>
       <label for="original_name">Оригинальное название:</label><br>
