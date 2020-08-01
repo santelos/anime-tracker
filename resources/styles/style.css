@@ -1,14 +1,13 @@
 @import "reset.css" ;
 
 body{
-    background-color: #eeede9;
     padding: 30px;
-    background-image: url(../images/meg3.png);
-    background-repeat: no-repeat;
+    background: url(../images/meg3.png) 100% 100% no-repeat;
     font-family: 'Balsamiq Sans', cursive;
-    display: inline-block;
-    height: auto;
-    max-width: 100%;
+    background-color: #eeede9;
+    background-attachment: fixed;
+    background-size: contain;
+     
 }
 
 table, th, td {

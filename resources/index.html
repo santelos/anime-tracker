@@ -77,7 +77,6 @@
           {% endif %}
         </td>
         <td>{{item.total_series}}</td>
-        <td></td>
         <td>
           {% for x in statuses %} {% if item.status = x.id %} {{x.name}} {% endif %} {% endfor %}
         </td>
@@ -99,7 +98,8 @@
 
 
   <div class="forms">
-
+    <details>
+      <summary>Добавить новый тайтл</summary> <br>
   <label>Загрузить с MAL</label>
     <input type="text" id="input_from_mal" name="input_from_mal">
     <button onclick="fromMal()">Загрузить</button>
@@ -138,5 +138,6 @@
 
   </div>
     <br><p><a href="/users">Добавить/удалить пользователя</a></p>
+    </details>
   </body>
 </html>
