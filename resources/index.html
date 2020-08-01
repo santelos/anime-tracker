@@ -60,7 +60,6 @@
         <th style="width: 150px">Оригинальное название</th>
         <th style="width: 30px">Просмотрено серий</th>
         <th style="width: 30px">Всего серий</th>
-        <th style="width: 30px">MAL</th>
         <th style="width: 100px">Статус</th>
         <th style="width: 100px">Кто смотрит</th>
         <th style="width: 150px">Примечание</th>
@@ -68,7 +67,7 @@
       </tr>
       {% for item in titles %}
       <tr>
-        <td><img style="max-width: 150px" src="{{item.picture_link}}"></td>
+        <td><a href="{{item.link}}"><img style="max-width: 150px" src="{{item.picture_link}}"></a></td>
         <td>{{item.name}}</td>
         <td>{{item.original_name}}</td>
         <td>
@@ -78,7 +77,7 @@
           {% endif %}
         </td>
         <td>{{item.total_series}}</td>
-        <td><a href="{{item.link}}">link</a></td>
+        <td></td>
         <td>
           {% for x in statuses %} {% if item.status = x.id %} {{x.name}} {% endif %} {% endfor %}
         </td>
