@@ -15,7 +15,6 @@
       return false;
     }
     function increaseWatchingSeries(id) {
-      console.log('11');
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.onload = function() {
           location.reload();
@@ -50,26 +49,26 @@
   </script>
   <head>
       <title>Наше аниме</title>
-      
+
   </head>
   <body>
     <div class="table_home">
     <table>
       <tr>
-        <th>Картинка</th>
-        <th>Название</th>
-        <th>Оригинальное название</th>
-        <th>Просмотрено серий</th>
-        <th>Всего серий</th>
-        <th>MAL</th>
-        <th>Статус</th>
-        <th>Кто смотрит</th>
-        <th>Примечание</th>
-        <th>Редактировать</th>
+        <th style="width: 150px">Картинка</th>
+        <th style="width: 150px">Название</th>
+        <th style="width: 150px">Оригинальное название</th>
+        <th style="width: 30px">Просмотрено серий</th>
+        <th style="width: 30px">Всего серий</th>
+        <th style="width: 30px">MAL</th>
+        <th style="width: 100px">Статус</th>
+        <th style="width: 100px">Кто смотрит</th>
+        <th style="width: 150px">Примечание</th>
+        <th style="width: 30px">Редактировать</th>
       </tr>
       {% for item in titles %}
       <tr>
-        <td><img src="{{item.picture_link}}"></td>
+        <td><img style="max-width: 150px" src="{{item.picture_link}}"></td>
         <td>{{item.name}}</td>
         <td>{{item.original_name}}</td>
         <td>
@@ -79,7 +78,7 @@
           {% endif %}
         </td>
         <td>{{item.total_series}}</td>
-        <td>{{item.link}}</td>
+        <td><a href="{{item.link}}">link</a></td>
         <td>
           {% for x in statuses %} {% if item.status = x.id %} {{x.name}} {% endif %} {% endfor %}
         </td>

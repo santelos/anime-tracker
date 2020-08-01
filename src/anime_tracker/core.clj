@@ -33,8 +33,7 @@
   (redirect "/users"))
 
 (defn user-deleter [request]
-      (response (persistence/delete-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params))))
-  )
+  (response (persistence/delete-user (mapping/mapping-user ((pp/assoc-form-params request "UTF-8") :form-params)))))
 
 (defn add-title [request]
   (persistence/insert-title-with-users ((pp/assoc-form-params request "UTF-8") :form-params))

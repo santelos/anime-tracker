@@ -1,7 +1,6 @@
 (ns anime-tracker.config
   (:require [environ.core :refer [env]]))
 
-
 (defn port []
   (read-string (or (env :port) "8080")))
 
