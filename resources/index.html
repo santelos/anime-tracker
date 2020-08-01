@@ -56,40 +56,55 @@
     <table>
       <tr>
         <th style="width: 150px">Картинка</th>
-        <th style="width: 150px">Название</th>
-        <th style="width: 150px">Оригинальное название</th>
+        <th style="width: 150px">Информация</th>
+        <th style="width: 150px;">Кто смотрит</th>
+        <!-- <th style="width: 150px">Оригинальное название</th>
         <th style="width: 30px">Просмотрено серий</th>
         <th style="width: 30px">Всего серий</th>
         <th style="width: 100px">Статус</th>
         <th style="width: 100px">Кто смотрит</th>
         <th style="width: 150px">Примечание</th>
-        <th style="width: 30px">Редактировать</th>
+        <th style="width: 30px">Редактировать</th> -->
       </tr>
       {% for item in titles %}
       <tr>
         <td><a href="{{item.link}}"><img style="max-width: 150px" src="{{item.picture_link}}"></a></td>
-        <td>{{item.name}}</td>
-        <td>{{item.original_name}}</td>
         <td>
-          {{item.watched_series}}
-          {% if item.watched_series < item.total_series %}
-            <button onclick="increaseWatchingSeries({{item.id}})">+</button>
-          {% endif %}
+          <ul>
+             <li>
+               {{item.name}}
+              </li>
+              <li>
+                {{item.original_name}}
+              </li>
+              <li>
+                {{item.watched_series}}
+                {% if item.watched_series < item.total_series %} 
+                  <a href="" onclick="increaseWatchingSeries({{item.id}})" title="Добавить серию"> + </a>
+                {% endif %}
+                    /
+                {{item.total_series}}
+              </li>
+              <li>
+                {% for x in statuses %} {% if item.status = x.id %} {{x.name}} {% endif %} {% endfor %}
+              </li>
+              <li>
+                {{item.comment}}
+              </li>
+              <li>
+                <a href="/edit-title/{{item.id}}">Редактировать</a>
+              </li>
+          </ul>
         </td>
-        <td>{{item.total_series}}</td>
         <td>
-          {% for x in statuses %} {% if item.status = x.id %} {{x.name}} {% endif %} {% endfor %}
+          <ul>
+            <li>          {% for user in item.users %}
+              <p style="background-color:{{user.color}}">{{user.name}}</p>
+            {% endfor %}
+            </li>
+          </ul>
         </td>
 
-        <td>
-          {% for user in item.users %}
-            <p style="background-color:{{user.color}}">{{user.name}}</p>
-          {% endfor %}
-        </td>
-        <td>{{item.comment}}</td>
-        <td>
-          <a href="/edit-title/{{item.id}}">E</a>
-        </td>
       </tr>
       {% endfor %}
     </table>
