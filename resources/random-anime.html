@@ -59,6 +59,19 @@
             </table>
         </div>
         <script>
+            let colors = [
+                '#0D56A6',
+                '#7FFF00',
+                '#FFA07A',
+                '#9ACD32',
+                '#7FFFD4',
+                '#FFFF00',
+                '#EE82EE',
+                '#708090',
+                '#FFFAFA',
+                '#8B4513',
+            ];
+
             // Create new wheel object specifying the parameters at creation time.
             let theWheel = new Winwheel({
                 'numSegments'  : {{list-size}},     // Specify number of segments.
@@ -67,7 +80,7 @@
                 'segments'     :        // Define segments including colour and text.
                 [
                 {% for item in titles %}
-                   {/*'fillStyle' : '{{item.randomColor}}', */'text' : '{{item.name}}', fullText : '{{item.full_name}}'},
+                   {'fillStyle' : colors[getRandomInt(colors.length)], 'text' : '{{item.name}}', fullText : '{{item.full_name}}'},
                 {% endfor %}
                 ],
                 'animation' :           // Specify the animation to use.
@@ -129,6 +142,10 @@
             {
                 // Do basic alert of the segment text. You would probably want to do something more interesting with this information.
                 alert("Ваш тайтл для просмотра: " + indicatedSegment.fullText);
+            }
+
+            function getRandomInt(max) {
+              return Math.floor(Math.random() * Math.floor(max));
             }
         </script>
     </body>
