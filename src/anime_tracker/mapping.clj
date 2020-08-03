@@ -39,3 +39,13 @@
 
 (defn mark-users [title-and-users]
   (assoc title-and-users :users (map (fn[user](mark-user user (group-by :id ((title-and-users :title) :users)))) (title-and-users :users))))
+
+(defn crop-title-name [unwatched-title]
+  (assoc unwatched-title
+         :full_name (unwatched-title :original_name)
+         :name (subs (unwatched-title :original_name) 0 (if (< (count (unwatched-title :original_name)) 13) (count (unwatched-title :original_name)) 13) )))
+
+(defn mapping-unwatched-anime [unwatched-titles]
+  (hash-map
+   :list-size (count unwatched-titles)
+   :titles (map (fn[title](crop-title-name title)) unwatched-titles)))

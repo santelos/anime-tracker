@@ -59,6 +59,9 @@
   (persistence/increase-title-series (read-string ((request :path-params) :id)))
   (redirect "/"))
 
+(defn random-anime [request]
+  (response (render-file "../resources/random-anime.html" (mapping/mapping-unwatched-anime (persistence/list-of-unwatched-titles)))))
+
 (def app
   (wrap-resource
    (json/wrap-json-response
@@ -74,7 +77,8 @@
         ["/favicon.ico" favicon]
         ["/edit-title/:id" {:get {:handler get-edit-title} :post {:handler edit-title}}]
         ["/increase-series/:id" {:post {:handler increase-series}}]
-        ["/parse-mal" parse-mal]]))) ""))
+        ["/parse-mal" parse-mal]
+        ["/random-anime" random-anime]]))) ""))
 
 (defn -main
   "I don't do a whole lot ... yet."
