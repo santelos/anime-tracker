@@ -80,8 +80,8 @@
               </li>
               <li>
                 {{item.watched_series}}
-                {% if item.watched_series < item.total_series %} 
-                  <a href="" onclick="increaseWatchingSeries({{item.id}})" title="Добавить серию"> + </a>
+                {% if item.watched_series < item.total_series %}
+                  <a class="increase-series-plus" onclick="increaseWatchingSeries({{item.id}})" title="Добавить серию"> + </a>
                 {% endif %}
                     /
                 {{item.total_series}}
