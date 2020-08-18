@@ -46,6 +46,19 @@
       xmlHttp.send();
       return false;
     }
+
+    var listOfTitles = [
+      {% for item in titles %}
+      { id:{{item.id}}, statusId:{{item.status}} },
+      {% endfor %}
+    ];
+
+    function filterStatus(selectedStatus) {
+      for(title of listOfTitles) {
+        document.getElementById('title_' + title.id).hidden = selectedStatus.value !== 'all' && (title.statusId != selectedStatus.value);
+      }
+    }
+
   </script>
   <head>
       <title>Наше аниме</title>
@@ -53,8 +66,17 @@
   </head>
   <body>
     <div><button title="Рандом - мой дом!" onclick="location.href='/random-anime';">&#127920;Чего бы посмотреть?</button></div><br>
+    <div>
+      <p>Фильтр по статусу</p>
+      <select name="statuses" id="statusFilter" onchange="filterStatus(this)">
+        <option value="all">Все</option>
+        {% for status in statuses %}
+        <option value="{{status.id}}">{{status.name}}</option>
+        {% endfor %}
+      </select>
+    </div><br>
     <div class="table_home">
-    <table>
+    <table id="tableOfTitles">
       <tr>
         <th style="width: 150px">Картинка</th>
         <th style="width: 150px">Информация</th>
@@ -68,7 +90,7 @@
         <th style="width: 30px">Редактировать</th> -->
       </tr>
       {% for item in titles %}
-      <tr>
+      <tr id="title_{{item.id}}">
         <td><a href="{{item.link}}"><img style="max-width: 150px" src="{{item.picture_link}}"></a></td>
         <td>
           <ul>
