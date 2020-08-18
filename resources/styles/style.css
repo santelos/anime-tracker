@@ -45,3 +45,12 @@ a{
 a.increase-series-plus:hover {
     cursor: pointer;
 }
+
+.FilterRow {
+    display: table;
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.FilterColumn {
+    display: table-cell;
+}

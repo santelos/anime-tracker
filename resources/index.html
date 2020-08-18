@@ -47,15 +47,21 @@
       return false;
     }
 
-    var listOfTitles = [
-      {% for item in titles %}
-      { id:{{item.id}}, statusId:{{item.status}} },
-      {% endfor %}
-    ];
+    var listOfTitles = [{% for item in titles %} { id:{{item.id}}, statusId:{{item.status}}, titleName:'{{item.name}}', originalName:'{{item.original_name}}' },{% endfor %}];
 
-    function filterStatus(selectedStatus) {
+    function filterTitleTable() {
+      let selectedStatus = document.getElementById('statusFilter').value;
+      let nameFilterValue = document.getElementById('nameFilter').value;
+
       for(title of listOfTitles) {
-        document.getElementById('title_' + title.id).hidden = selectedStatus.value !== 'all' && (title.statusId != selectedStatus.value);
+        document.getElementById('title_' + title.id).hidden = !(
+            (selectedStatus === 'all' || (title.statusId == selectedStatus)) &&
+            (
+              !nameFilterValue ||
+              title.titleName.toLowerCase().includes(nameFilterValue.toLowerCase()) ||
+              title.originalName.toLowerCase().includes(nameFilterValue.toLowerCase())
+            )
+          );
       }
     }
 
@@ -66,14 +72,20 @@
   </head>
   <body>
     <div><button title="Рандом - мой дом!" onclick="location.href='/random-anime';">&#127920;Чего бы посмотреть?</button></div><br>
-    <div>
-      <p>Фильтр по статусу</p>
-      <select name="statuses" id="statusFilter" onchange="filterStatus(this)">
-        <option value="all">Все</option>
-        {% for status in statuses %}
-        <option value="{{status.id}}">{{status.name}}</option>
-        {% endfor %}
-      </select>
+    <div id="filter" class="FilterRow">
+      <div class="FilterColumn">
+        <p>Фильтр по статусу</p>
+        <select name="statuses" id="statusFilter" onchange="filterTitleTable()">
+          <option value="all">Все</option>
+          {% for status in statuses %}
+          <option value="{{status.id}}">{{status.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="FilterColumn">
+        <p>Поиск по названию</p>
+        <input type="text" id="nameFilter" onchange="filterTitleTable()"/>
+      </div>
     </div><br>
     <div class="table_home">
     <table id="tableOfTitles">
