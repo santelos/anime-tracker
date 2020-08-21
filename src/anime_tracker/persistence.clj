@@ -54,9 +54,14 @@
 (defn increase-title-series [id]
   (jdbc/execute! pg
     ["UPDATE titles SET watched_series = watched_series + 1, updated_at = ? WHERE id = ?" (System/currentTimeMillis) id])
-  (if (let [res (first (jdbc/query pg ["SELECT watched_series, total_series FROM titles WHERE id = ?" id]))]
-        (= (res :watched_series) (res :total_series)))
-    (jdbc/update! pg :titles {:status 3} ["id = ?" id])))
+  (let [res (first (jdbc/query pg ["SELECT watched_series, total_series FROM titles WHERE id = ?" id]))]
+    (cond
+     (= (res :watched_series) (res :total_series)) (jdbc/update! pg :titles {:status 3} ["id = ?" id])
+     (< 0 (res :watched_series)) (jdbc/update! pg :titles {:status 1} ["id = ?" id]))))
+
+;  (if (let [res (first (jdbc/query pg ["SELECT watched_series, total_series FROM titles WHERE id = ?" id]))]
+;        (= (res :watched_series) (res :total_series)))
+;    (jdbc/update! pg :titles {:status 3} ["id = ?" id])))
 
 (defn list-of-unwatched-titles []
   (jdbc/query pg
