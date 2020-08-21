@@ -59,10 +59,6 @@
      (= (res :watched_series) (res :total_series)) (jdbc/update! pg :titles {:status 3} ["id = ?" id])
      (< 0 (res :watched_series)) (jdbc/update! pg :titles {:status 1} ["id = ?" id]))))
 
-;  (if (let [res (first (jdbc/query pg ["SELECT watched_series, total_series FROM titles WHERE id = ?" id]))]
-;        (= (res :watched_series) (res :total_series)))
-;    (jdbc/update! pg :titles {:status 3} ["id = ?" id])))
-
 (defn list-of-unwatched-titles []
   (jdbc/query pg
               ["SELECT t.id, t.original_name FROM titles AS t
