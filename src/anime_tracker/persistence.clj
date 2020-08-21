@@ -35,7 +35,7 @@
 
 (defn insert-title-with-users [title]
   (jdbc/with-db-transaction [tx pg]
-    (let [new-title (jdbc/insert! tx :titles  (mapping/extract-title-from-form title) {:return-keys ["id"]})]
+    (let [new-title (jdbc/insert! tx :titles (mapping/bump-title (mapping/extract-title-from-form title)) {:return-keys ["id"]})]
       (cond
         (nil? (title "users")) ()
         (vector? (title "users")) (doseq [user (title "users")] (jdbc/insert! tx :titles_2_users (hash-map :title_id ((first new-title) :id) :user_id (read-string user))))
@@ -44,7 +44,7 @@
 
 (defn update-title-with-users [title id]
   (jdbc/with-db-transaction [tx pg]
-    (jdbc/update! tx :titles  (mapping/extract-title-from-form title) ["id = ?" id])
+    (jdbc/update! tx :titles (mapping/bump-title (mapping/extract-title-from-form title)) ["id = ?" id])
     (jdbc/delete! tx :titles_2_users ["title_id = ?" id])
     (cond
       (nil? (title "users")) ()
@@ -53,7 +53,7 @@
 
 (defn increase-title-series [id]
   (jdbc/execute! pg
-    ["UPDATE titles SET watched_series = watched_series + 1 WHERE id = ?" id])
+    ["UPDATE titles SET watched_series = watched_series + 1, updated_at = ? WHERE id = ?" (System/currentTimeMillis) id])
   (if (let [res (first (jdbc/query pg ["SELECT watched_series, total_series FROM titles WHERE id = ?" id]))]
         (= (res :watched_series) (res :total_series)))
     (jdbc/update! pg :titles {:status 3} ["id = ?" id])))

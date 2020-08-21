@@ -19,7 +19,7 @@
     (assoc title :users (sort-by :id (into [] (map extract-user users))))))
 
 (defn map-titles [titles]
-  (sort-by :id #(compare %2 %1) (map instruct-users-to-title (seq (group-by mapping-by-title titles)))))
+  (map instruct-users-to-title (seq (group-by mapping-by-title (sort-by :updated_at #(compare %2 %1) titles)))))
 
 (defn extract-title-from-form [title]
   (hash-map :name (if (nil? (title "name")) nil (name (title "name")))
@@ -49,3 +49,6 @@
   (hash-map
    :list-size (count unwatched-titles)
    :titles (map (fn[title](crop-title-name title)) unwatched-titles)))
+
+(defn bump-title [title]
+  (assoc title :updated_at (System/currentTimeMillis)))

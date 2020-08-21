@@ -7,7 +7,8 @@ CREATE TABLE titles(
         total_series    INTEGER     NOT NULL,
         status          INTEGER     NOT NULL,
         picture_link    TEXT,
-        comment         TEXT
+        comment         TEXT,
+        updated_at      BIGINT      NOT NULL
 );
 
 CREATE TABLE users(
