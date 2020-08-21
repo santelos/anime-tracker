@@ -9,7 +9,8 @@
             :watched_series (title :watched_series)
             :total_series (title :total_series)
             :comment (title :comment)
-            :picture_link (title :picture_link)))
+            :picture_link (title :picture_link)
+            :updated_at (title :updated_at)))
 
 (defn extract-user [user]
   (hash-map :id (user :id_2) :name (user :name_2) :color (user :color)))
@@ -19,7 +20,7 @@
     (assoc title :users (sort-by :id (into [] (map extract-user users))))))
 
 (defn map-titles [titles]
-  (map instruct-users-to-title (seq (group-by mapping-by-title (sort-by :updated_at #(compare %2 %1) titles)))))
+  (sort-by :updated_at #(compare %2 %1) (map instruct-users-to-title (seq (group-by mapping-by-title titles)))))
 
 (defn extract-title-from-form [title]
   (hash-map :name (if (nil? (title "name")) nil (name (title "name")))
