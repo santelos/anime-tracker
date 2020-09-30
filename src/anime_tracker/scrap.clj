@@ -10,7 +10,7 @@
 
 (defn find-title [html]
   (-> (s/select (s/child
-                 (s/class "title-name")) html) first :content first string/trim))
+                 (s/class "title-name")) html) first :content first :content first string/trim))
 
 (defn find-total-series [html]
    (string/trim
